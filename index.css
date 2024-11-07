@@ -81,4 +81,9 @@ footer {
   button {
     margin-left: 400px;
   }
+
+  hr {
+    margin-top: 60px;
+    height: 2px;
+  }
 }
