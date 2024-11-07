@@ -53,6 +53,16 @@ img {
   height: 100%;
 }
 
+hr {
+  margin-top: 150px;
+  height: 2px;
+}
+
+footer {
+  text-align: center;
+  font-size: medium;
+}
+
 @media screen and (min-width: 450px) {
   .container {
     width: 60vw;
