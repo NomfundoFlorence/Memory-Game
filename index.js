@@ -1,20 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-  let points;
-  let isChecking;
+  window.initializeGame = () => {
+    window.matchedPairs = 0;
+    window.isChecking = false;
 
-  const initializeGame = () => {
-    points = 0;
-    isChecking = false;
-    updatePoints();
     gridItemContent();
+
+    const resetBtn = document.getElementById('reset');
+    resetBtn.style.display = 'none';
+
+    const gameStatus = document.getElementById('gameStatus');
+    gameStatus.style.display = 'none';
   };
 
-  const updatePoints = () => {
-    const pointsElem = document.getElementById('points');
-    pointsElem.innerHTML = `Points: ${points}`;
-  };
-
-  const shuffleItems = () => {
+  window.shuffleItems = () => {
     const items = {
       1: 'https://static.vecteezy.com/system/resources/previews/021/815/623/original/triangle-shape-icon-sign-free-png.png',
       2: 'https://freepngimg.com/thumb/shape/29779-8-circle-file.png',
@@ -55,76 +53,95 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.flippedCards = [];
 
-  const gridItemContent = () => {
+  window.gridItemContent = () => {
     const values = shuffleItems();
     const gridItems = document.querySelectorAll('.grid-item');
 
     gridItems.forEach((item, index) => {
       resetGridItem(item, values[index]);
       item.addEventListener('click', () =>
-        handleCardClick(item, window.flippedCards)
+        window.handleCardClick(item, window.flippedCards)
       );
     });
   };
 
-  const resetGridItem = (item, value) => {
+  window.resetGridItem = (item, value) => {
     item.textContent = '';
     const img = document.createElement('img');
     img.src = value;
     img.style.display = 'none';
     img.classList.add('grid-image');
     item.appendChild(img);
+
+    item.style.cursor = 'pointer';
   };
 
-  const handleCardClick = (card, flippedCards) => {
+  window.handleCardClick = (card, flippedCards) => {
     const img = card.querySelector('img');
 
-    if (
-      img.style.display === 'block' ||
-      flippedCards.length === 2 ||
-      isChecking
-    ) {
+    if (img.style.display === 'block' || isChecking) {
       return;
     }
 
     img.style.display = 'block';
     flippedCards.push(img);
 
+    card.style.cursor = 'default';
+
+    const resetBtn = document.getElementById('reset');
+    if (resetBtn.style.display === 'none') {
+      resetBtn.style.display = 'block';
+    }
+
     if (flippedCards.length === 2) {
-      checkForMatch(flippedCards);
+      window.checkForMatch(flippedCards);
     }
   };
 
-  checkForMatch = (flippedCards) => {
-    isChecking = true;
+  window.checkForMatch = (flippedCards) => {
+    window.isChecking = true;
     const [firstCard, secondCard] = flippedCards;
 
     if (firstCard.src === secondCard.src) {
-      points += 10;
-      updatePoints();
+      window.matchedPairs += 1;
 
-      if (points === 80) {
-        alert(`All cards matched, you win!`);
+      if (window.matchedPairs === 8) {
+        window.showGameStatus();
       }
 
       flippedCards.length = 0;
-      isChecking = false;
+      window.isChecking = false;
     } else {
       setTimeout(() => hideCards(firstCard, secondCard, flippedCards), 1000);
     }
   };
 
-  hideCards = (firstCard, secondCard, flippedCards) => {
+  window.showGameStatus = () => {
+    const gameStatus = document.getElementById('gameStatus');
+    gameStatus.style.display = 'block';
+  };
+
+  window.hideCards = (firstCard, secondCard, flippedCards) => {
     firstCard.style.display = 'none';
     secondCard.style.display = 'none';
+    firstCard.parentElement.style.cursor = 'pointer';
+    secondCard.parentElement.style.cursor = 'pointer';
+
     flippedCards.length = 0;
-    isChecking = false;
+    window.isChecking = false;
   };
 
   const resetBtn = document.getElementById('reset');
   resetBtn.addEventListener('click', () => {
-    initializeGame();
+    resetBtn.style.display = 'none';
+
+    window.initializeGame();
   });
 
-  initializeGame();
+  const newGameBtn = document.getElementById('newGame');
+  newGameBtn.addEventListener('click', () => {
+    window.initializeGame();
+  });
+
+  window.initializeGame();
 });

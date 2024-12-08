@@ -1,5 +1,51 @@
+body {
+  background-color: #f5f5dc;
+  color: #4b4b4b;
+}
+
 h2 {
   text-align: center;
+  color: lightcoral;
+  margin-bottom: 3px;
+  font-weight: 600;
+}
+
+#instructions {
+  text-align: center;
+  margin-top: 3px;
+}
+
+#gameStatus {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(211, 211, 211, 0.95);
+  color: rgb(24, 23, 23);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  z-index: 10;
+  width: 80%;
+  max-width: 300px;
+}
+
+#gameStatusContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#statusMessage {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .board {
@@ -10,31 +56,21 @@ h2 {
   padding: 10px;
 }
 
-.scoreboard {
-  background-color: lightcoral;
-  padding-left: 12px;
-  color: white;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  height: 80px;
-  width: 100%;
-  margin-top: 10px;
-}
-
 button {
-  background-color: white;
-  color: black;
   border: none;
   padding: 10px 20px;
-  margin-left: 200px;
   cursor: pointer;
   font-size: 16px;
+  border-radius: 10px;
 }
 
-button:hover {
-  background-color: lightgray;
+#newGame {
+  background-color: rgba(32, 76, 237, 0.829);
+  color: rgb(255, 255, 255);
+}
+
+#newGame:hover {
+  background-color: rgb(32, 77, 237);
 }
 
 .grid-item {
@@ -45,7 +81,8 @@ button:hover {
   color: white;
   font-size: 1.5em;
   padding: 20px;
-  height: 70px;
+  height: 65px;
+  width: 50px;
 }
 
 img {
@@ -53,14 +90,15 @@ img {
   height: 100%;
 }
 
-hr {
-  margin-top: 150px;
-  height: 2px;
+#reset {
+  background-color: rgb(211, 211, 211, 0.861);
+  color: rgb(0, 0, 0);
+  margin-top: 50px;
 }
 
-footer {
-  text-align: center;
-  font-size: medium;
+#reset:hover {
+  background-color: rgb(230, 43, 43);
+  color: rgb(225, 225, 225);
 }
 
 @media screen and (min-width: 450px) {
@@ -69,21 +107,14 @@ footer {
     max-width: 600px;
     margin: 0 auto;
     display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 
-  .board,
-  .scoreboard {
-    width: 100%;
+  .grid-item {
+    height: 70px;
+    width: 100px;
   }
 
-  button {
-    margin-left: 400px;
-  }
-
-  hr {
-    margin-top: 60px;
-    height: 2px;
+  #reset {
+    margin-top: 10px;
   }
 }

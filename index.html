@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./index.css" />
     <title>Memory Game</title>
-    <link
-      rel="website icon"
-      type="jpg"
-      href="https://www.onlygfx.com/wp-content/uploads/2022/04/brain-icon-3-cover.jpg" />
   </head>
   <body>
-    <h2>Match the cards</h2>
+    <h2>Instructions:</h2>
+    <p id="instructions">Find the matching cards</p>
     <div class="container">
       <div class="board">
         <div class="grid-item item1"></div>
@@ -31,16 +28,16 @@
         <div class="grid-item item15"></div>
         <div class="grid-item item16"></div>
       </div>
-      <div class="scoreboard">
-        <p id="points"></p>
+      <div id="gameStatus">
+        <div id="gameStatusContent">
+          <p id="statusMessage">All cards matched!</p>
+          <button id="newGame">Play again</button>
+        </div>
+      </div>
+      <div class="resetGame">
         <button id="reset">Reset</button>
       </div>
     </div>
     <script src="./index.js"></script>
-
-    <hr />
-    <footer>
-      <p>© 2024 - Nomfundo Mlangeni</p>
-    </footer>
   </body>
 </html>
