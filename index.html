@@ -10,22 +10,27 @@
     <div id="gridSizeSelector">
       <label for="grid-size">Select Grid Size:</label>
       <select name="size-configuration" id="grid-size">
-        <option class="size-option" value="4by4" selected disabled>-- Select --</option>
+        <option class="size-option" value="4by4" selected>-- select --</option>
         <option class="size-option" value="2by2">2x2</option>
         <option class="size-option" value="3by2">3x2</option>
         <option class="size-option" value="4by3">4x3</option>
         <option class="size-option" value="4by4">4x4</option>
       </select>
     </div>
- 
-    <h2>Instructions:</h2>
-    <p id="instructions">Find the matching cards</p>
+    <div id="heading-timer-container">
+      <div id="instructions-container">
+        <h2>Instructions:</h2>
+      <p id="instructions">Find the matching cards</p>
+      </div>
+        <h2 id="timer">00:00</h2>
+    </div>
     <div class="container">
       <div class="board">
       </div>
       <div id="gameStatus">
         <div id="gameStatusContent">
           <p id="statusMessage">All cards matched!</p>
+          <p id="played-time"></p>
           <button id="newGame">Play again</button>
         </div>
       </div>

@@ -1,13 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
+  window.intervalID;
+  window.second = 0;
+  window.minute = 0;
+  
+  window.timer = () => {
+    const timer = document.getElementById('timer');
+    window.intervalID = setInterval(() => {
+      window.second += 1;
+      timer.textContent = `0${window.minute}:0${window.second}`;
+
+      if (window.second.toString().length === 2) {
+        timer.textContent = `0${window.minute}:${window.second}`;
+      }
+      if (window.second > 59) {
+        window.minute += 1;
+        window.second = 0;
+        timer.textContent = `0${window.minute}:0${window.second}`;
+      }
+    }, 1000);
+
+    return window.intervalID;
+  };
+
   window.initializeGame = () => {
     window.matchedPairs = 0;
     window.isChecking = false;
     window.totalPairs;
 
-    gridItemContent();
-
     const board = document.querySelector('.board');
-    board.style.display = 'none';
+    board.style.filter = 'blur(3px)';
+
+    gridItemContent();
 
     const h2 = document.getElementsByTagName('h2')[0];
     h2.style.display = 'none';
@@ -23,6 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const gridSizeSelector = document.getElementById('gridSizeSelector');
     gridSizeSelector.style.display = 'block';
+
+    const gridSelector = document.getElementById('grid-size');
+    gridSelector.value = '4by4';
+
+    window.gridConfiguration();
   };
 
   window.gridConfiguration = () => {
@@ -45,25 +73,34 @@ document.addEventListener('DOMContentLoaded', () => {
         rows = 2;
         columns = 2;
         window.totalPairs = 2;
+        gridSizeSelector.style.display = 'none';
+        window.timer();
         break;
       case '3by2':
         rows = 2;
         columns = 3;
         window.totalPairs = 3;
+        gridSizeSelector.style.display = 'none';
+        window.timer();
         break;
       case '4by3':
         rows = 3;
         columns = 4;
         window.totalPairs = 6;
+        gridSizeSelector.style.display = 'none';
+        window.timer();
         break;
       case '4by4':
+        const selectedOption = gridSelector.options[gridSelector.selectedIndex];
+        if (selectedOption.innerHTML !== '-- select --') {
+          gridSizeSelector.style.display = 'none';
+          window.timer();
+        }
         rows = 4;
         columns = 4;
         window.totalPairs = 8;
         break;
     }
-
-    gridSizeSelector.style.display = 'none';
 
     board.style.display = 'grid';
     h2.style.display = 'block';
@@ -84,6 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
       );
       board.appendChild(gridItem);
     });
+
+    const cards = document.querySelectorAll('.grid-item');
+    cards.forEach((card) => card.classList.add('disabled'));
   };
 
   window.shuffleItems = () => {
@@ -214,6 +254,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (window.matchedPairs === window.totalPairs) {
         window.showGameStatus();
+        clearInterval(window.intervalID);
+        window.second = 0;
+        window.minute = 0;
+
+        const playedTime = document.getElementById('played-time');
+        const timer = document.getElementById('timer');
+        const [minutes, seconds] = timer.textContent.split(':');
+        playedTime.textContent = `You played for ${minutes} mins ${seconds} secs`;
+        playedTime.style.fontSize = '19px';
+        timer.textContent = '00:00';
       }
 
       flippedCards.length = 0;
@@ -244,17 +294,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const gridSelector = document.getElementById('grid-size');
   gridSelector.addEventListener('change', () => {
     window.gridConfiguration();
+
+    const cards = document.querySelectorAll('.grid-item');
+    cards.forEach((card) => card.classList.remove('disabled'));
+
+    const board = document.querySelector('.board');
+    board.style.filter = 'none';
   });
 
   const resetBtn = document.getElementById('reset');
   resetBtn.addEventListener('click', () => {
     resetBtn.style.display = 'none';
+    clearInterval(window.intervalID);
+    window.second = 0;
+    window.minute = 0;
+
+    const timer = document.getElementById('timer');
+    timer.textContent = '00:00';
 
     window.initializeGame();
-    window.flippedCards = [];
 
-    const board = document.querySelector('.board');
-    board.style.display = 'grid';
+    const gridSizeSelector = document.getElementById('gridSizeSelector');
+    gridSizeSelector.style.display = 'block';
 
     const h2 = document.getElementsByTagName('h2')[0];
     h2.style.display = 'block';
@@ -262,16 +323,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const instructions = document.getElementById('instructions');
     instructions.style.display = 'block';
 
-    const gridSizeSelector = document.getElementById('gridSizeSelector');
-    gridSizeSelector.style.display = 'none';
+    window.flippedCards = [];
   });
 
   const newGameBtn = document.getElementById('newGame');
   newGameBtn.addEventListener('click', () => {
     window.initializeGame();
-    
-    const gridSizeSelector = document.getElementById('gridSizeSelector');
-    gridSizeSelector.style.display = 'block';
   });
 
   window.initializeGame();

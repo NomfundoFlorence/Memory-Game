@@ -3,6 +3,33 @@ body {
   color: #4b4b4b;
 }
 
+.disabled {
+  pointer-events: none;
+}
+
+#heading-timer-container {
+  display: flex;
+  justify-content: space-between;
+  justify-self: center;
+  align-items: center;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  background-color: rgba(211, 211, 211, 0.95);
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+#instructions-container {
+  display: block;
+  font-weight: 600;
+}
+
+#timer {
+  color: #000;
+  font-weight: 500;
+}
+
 #gridSizeSelector {
   position: absolute;
   top: 50%;
@@ -13,20 +40,17 @@ body {
   padding: 20px;
   border-radius: 8px;
   text-align: center;
-  z-index: 10;
+  z-index: 100;
   width: 80%;
   max-width: 300px;
 }
 
 h2 {
-  text-align: center;
   color: lightcoral;
   margin-bottom: 3px;
-  font-weight: 600;
 }
 
 #instructions {
-  text-align: center;
   margin-top: 3px;
 }
 
@@ -65,7 +89,6 @@ h2 {
 
 .board {
   display: grid;
-  /* grid-template-columns: repeat(4, 1fr); */
   grid-gap: 10px;
   background-color: lightgray;
   padding: 10px;
@@ -117,6 +140,10 @@ img {
 }
 
 @media screen and (min-width: 450px) {
+  #heading-timer-container {
+    width: 50vw;
+    height: 50px;
+  }
   .container {
     width: 60vw;
     max-width: 600px;
