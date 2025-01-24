@@ -23,9 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   window.initializeGame = () => {
+    window.flipCount = 0;
     window.matchedPairs = 0;
     window.isChecking = false;
     window.totalPairs;
+
+    const flipCount = document.getElementById('card-flips');
+    flipCount.textContent = `${window.flipCount}`
 
     const board = document.querySelector('.board');
     board.style.filter = 'blur(3px)';
@@ -235,6 +239,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     card.style.cursor = 'default';
 
+    window.flipCount += 1;
+    const flipCount = document.getElementById('card-flips');
+    flipCount.textContent = `${window.flipCount}`
+
     const resetBtn = document.getElementById('reset');
     if (resetBtn.style.display === 'none') {
       resetBtn.style.display = 'block';
@@ -259,10 +267,15 @@ document.addEventListener('DOMContentLoaded', () => {
         window.minute = 0;
 
         const playedTime = document.getElementById('played-time');
+        const cardsFlipped = document.getElementById('cards-flipped')
         const timer = document.getElementById('timer');
+        const flipCount = document.getElementById('card-flips');
         const [minutes, seconds] = timer.textContent.split(':');
         playedTime.textContent = `You played for ${minutes} mins ${seconds} secs`;
         playedTime.style.fontSize = '19px';
+        cardsFlipped.textContent = `with ${window.flipCount} total flips`
+        cardsFlipped.style.fontSize = '19px';
+        flipCount.textContent = '0'
         timer.textContent = '00:00';
       }
 
