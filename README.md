@@ -1,5 +1,7 @@
 # Memory-Game
 
+Link to the [game](https://memory-game-73.netlify.app/)
+
 This project showcases my basic DOM manipulation skills and uses the following stack:
 - Javascript
 - CSS
